@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "185953694815",
+    "firebase_url": "https://vendedoresitlp.firebaseio.com",
+    "project_id": "vendedoresitlp",
+    "storage_bucket": "vendedoresitlp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:185953694815:android:d0387087c86e8d9f",
+        "android_client_info": {
+          "package_name": "mx.edu.itlp.proyectomovil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "185953694815-r5arpgpdndirkj0sspui57dp4apr0pk9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mx.edu.itlp.proyectomovil",
+            "certificate_hash": "1f857b4959712a8b16b35c5731abd6113bd018ad"
+          }
+        },
+        {
+          "client_id": "185953694815-5kvvfc8m7dv64t6vat9kgav6756lvogn.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "185953694815-5kvvfc8m7dv64t6vat9kgav6756lvogn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBo3svuQSAri2S-_SAXI4Gz7cNGzcJLCUk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "185953694815-5kvvfc8m7dv64t6vat9kgav6756lvogn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

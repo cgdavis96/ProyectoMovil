@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Pedido">
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/navigation" />
+
+    <ListView
+        android:layout_width="114dp"
+        android:layout_height="444dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="3dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$15.00 c/u"
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="89dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$15.00 c/u"
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="151dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$15.00 c/u"
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="217dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$15.00 c/u"
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="286dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$15.00 c/u"
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="350dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$15.00 c/u"
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <EditText
+        android:id="@+id/editText24"
+        android:layout_width="82dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Cantidad"
+        android:inputType="number"
+        tools:layout_editor_absoluteX="258dp"
+        tools:layout_editor_absoluteY="144dp" />
+
+    <EditText
+        android:id="@+id/editText26"
+        android:layout_width="82dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Cantidad"
+        android:inputType="number"
+        tools:layout_editor_absoluteX="258dp"
+        tools:layout_editor_absoluteY="75dp" />
+
+    <EditText
+        android:id="@+id/editText25"
+        android:layout_width="82dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Cantidad"
+        android:inputType="number"
+        tools:layout_editor_absoluteX="258dp"
+        tools:layout_editor_absoluteY="3dp" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Solicitar"
+        tools:layout_editor_absoluteX="258dp"
+        tools:layout_editor_absoluteY="382dp" />
+
+</android.support.constraint.ConstraintLayout>

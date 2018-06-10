@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">ProyectoMovil</string>
+    <string name="login">Login</string>
+    <string name="title_activity_principal">Principal</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_productos">Productos</string>
+    <string name="title_activity_producto">Producto</string>
+    <string name="title_activity_producto__nuevo">Producto Nuevo</string>
+    <string name="title_activity_ventas">Ventas</string>
+    <string name="title_activity_venta">Venta</string>
+    <string name="title_activity_perfil">Perfil</string>
+    <string name="title_activity_compras">Compras</string>
+    <string name="title_activity_compra">Compra</string>
+    <string name="title_activity_vendedores">Vendedores</string>
+    <string name="title_activity_pedido">Pedido</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps2">Map</string>
+    <string name="title_activity_mapa_vendedor">Map</string>
+
+    <string name="descripcion">Imagen perrona</string>
+    <string name="btnLogear">Iniciar Sesion</string>
+    <string name="btnRegistrar">Registrar</string>
+    <string name="name">Nombre:</string>
+    <string name="email">Email:</string>
+    <string name="phone">Telefono:</string>
+    <string name="precio">Precio:</string>
+    <string name="disponibles">Disponibles:</string>
+    <string name="descripcion2">Descripcion:</string>
+    <string name="title_activity_maps_ruta">Map</string>
+</resources>
