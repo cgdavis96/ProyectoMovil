@@ -150,8 +150,8 @@ public class ClienteWebService {
     }
 
 
-    public static void registrarPedido(String total, int idVen, int idCli, String fecha, String horaSolicitud, String latitud, String longitud, final ListenerWebService listener) {
-        PropertyInfo[] parametros = new PropertyInfo[8];
+    public static void registrarPedido(String total, int idVen, int idCli, String fecha, String horaSolicitud, String latitud, String longitud, String Productos, final ListenerWebService listener) {
+        PropertyInfo[] parametros = new PropertyInfo[9];
         parametros[0] = parametro("total", total);
         parametros[1] = parametro("idVen", idVen);
         parametros[2] = parametro("idCli", idCli);
@@ -159,6 +159,7 @@ public class ClienteWebService {
         parametros[4] = parametro("horaSolicitud", horaSolicitud);
         parametros[5] = parametro("latitud", latitud);
         parametros[6] = parametro("longitud", longitud);
+        parametros[6] = parametro("productos", Productos);
         parametros[7] = parametro("passWS", PASSWS);
         invocarWebService2(WSDL_TARGET_NAMESPACE,DIRECCION_SOAP, OPERACION_registrarPedido,SOAP_ACTION+OPERACION_registrarPedido, parametros, listener);
     }

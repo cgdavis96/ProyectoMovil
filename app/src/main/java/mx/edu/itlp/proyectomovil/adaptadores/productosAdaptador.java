@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker;
 import com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPickerListener;
 
@@ -23,12 +24,13 @@ import mx.edu.itlp.proyectomovil.R;
  * Created by Jhosef Davis on 03/06/2018.
  */
 
-public class productosAdaptador extends  BaseAdapter{
+public class productosAdaptador extends BaseAdapter {
     public OProducto[] oProductos;
     private Context context;
     ViewHolder[] viewHolders;
     TextView textView;
     float totalFinal;
+
     public productosAdaptador(OProducto[] oProductos, Context context, TextView textView) {
         this.textView = textView;
         this.oProductos = oProductos;
@@ -51,7 +53,7 @@ public class productosAdaptador extends  BaseAdapter{
 
     @Override
     public int getCount() {
-        if (oProductos!=null)
+        if (oProductos != null)
             return oProductos.length;
         else
             return 0;
@@ -59,7 +61,7 @@ public class productosAdaptador extends  BaseAdapter{
 
     @Override
     public Object getItem(int i) {
-        return (Object)oProductos[i];
+        return (Object) oProductos[i];
     }
 
     @Override
@@ -73,10 +75,10 @@ public class productosAdaptador extends  BaseAdapter{
         LayoutInflater f = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View v = f.inflate(R.layout.list_productos, null);
         final ViewHolder seleccion;
-        TextView txtNombre = (TextView)v.findViewById(R.id.txtNombreLP);
-        TextView txtDesc= (TextView)v.findViewById(R.id.txtDescripLP);
-        TextView txtPrecio = (TextView)v.findViewById(R.id.txtPrecioLP);
-        TextView txtDisp = (TextView)v.findViewById(R.id.txtDisLP);
+        TextView txtNombre = (TextView) v.findViewById(R.id.txtNombreLP);
+        TextView txtDesc = (TextView) v.findViewById(R.id.txtDescripLP);
+        TextView txtPrecio = (TextView) v.findViewById(R.id.txtPrecioLP);
+        TextView txtDisp = (TextView) v.findViewById(R.id.txtDisLP);
         txtNombre.setText(oProducto.getNombre());
         txtDesc.setText(oProducto.getDescripcion());
         txtPrecio.setText(oProducto.getPrecio());
@@ -92,7 +94,7 @@ public class productosAdaptador extends  BaseAdapter{
         scrollableNumberPicker.setMaxValue(Integer.valueOf(oProducto.getStock()));
 
         scrollableNumberPicker.setValue(seleccion.cantidad);
-        ImageView imagen =(ImageView) v.findViewById(R.id.imvPro);
+        ImageView imagen = (ImageView) v.findViewById(R.id.imvPro);
         imagen.setImageResource(R.drawable.burrito);            //poner url de origen, posiblemente tenga que salvarse como la cantidad
         subTotal.setText(String.format("$%,.2f", Float.valueOf(oProducto.getPrecio()) * seleccion.cantidad));
         ImageView menos = (ImageView) scrollableNumberPicker.getButtonMinusView();
@@ -101,36 +103,36 @@ public class productosAdaptador extends  BaseAdapter{
         menos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                scrollableNumberPicker.setValue(scrollableNumberPicker.getValue()-1);
+                scrollableNumberPicker.setValue(scrollableNumberPicker.getValue() - 1);
                 int Cant = scrollableNumberPicker.getValue();
                 seleccion.cantidad = Cant;
-                seleccion.total =  Float.valueOf(oProducto.getPrecio()) * seleccion.cantidad;
+                seleccion.total = Float.valueOf(oProducto.getPrecio()) * seleccion.cantidad;
                 subTotal.setText(String.format("$%,.2f", seleccion.total));
                 sumar();
-                textView.setText("Total $"+String.valueOf(totalFinal));
+                textView.setText("Total $" + String.valueOf(totalFinal));
 
             }
         });
         mas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                scrollableNumberPicker.setValue(scrollableNumberPicker.getValue()+1);
+                scrollableNumberPicker.setValue(scrollableNumberPicker.getValue() + 1);
                 int Cant = scrollableNumberPicker.getValue();
                 seleccion.cantidad = Cant;
-                seleccion.total =  Float.valueOf(oProducto.getPrecio()) * seleccion.cantidad;
+                seleccion.total = Float.valueOf(oProducto.getPrecio()) * seleccion.cantidad;
                 subTotal.setText(String.format("$%,.2f", seleccion.total));
                 sumar();
-                textView.setText("Total $"+String.valueOf(totalFinal));
+                textView.setText("Total $" + String.valueOf(totalFinal));
             }
         });
 
         return v;
     }
 
-    public void sumar(){
+    public void sumar() {
         totalFinal = 0;
-        for(int i=0;i<viewHolders.length;i++){
-            if(viewHolders[i]!=null && viewHolders[i].getCantidad()>0){
+        for (int i = 0; i < viewHolders.length; i++) {
+            if (viewHolders[i] != null && viewHolders[i].getCantidad() > 0) {
                 totalFinal += viewHolders[i].getTotal();
             }
         }
@@ -139,7 +141,11 @@ public class productosAdaptador extends  BaseAdapter{
     public class ViewHolder {
         String idPro = "";
         float total = 0;
-        int cantidad=0;
+        int cantidad = 0;
+
+        public String getJSON() {
+            return new Gson().toJson(this);
+        }
 
         public float getTotal() {
             return total;

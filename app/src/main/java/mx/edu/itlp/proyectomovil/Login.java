@@ -81,9 +81,9 @@ public class Login extends AppCompatActivity {
                                 //editor.putString("correoVendedor", txtCorreo.getText().toString());
                                 editor.putInt("idVen", usuario.getId());
                                 editor.commit();
-                                Intent intent = new Intent(getApplicationContext(), editarPerfil.class);
+                                //Intent intent = new Intent(getApplicationContext(), editarPerfil.class);
+                                Intent intent = new Intent(getApplicationContext(), Productos.class);
                                 startActivity(intent);
-
                             }
                         }
 

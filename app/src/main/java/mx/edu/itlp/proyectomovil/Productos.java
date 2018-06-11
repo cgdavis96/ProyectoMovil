@@ -34,11 +34,15 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import javax.annotation.Nullable;
 
@@ -51,7 +55,7 @@ import mx.edu.itlp.proyectomovil.webservice.ClienteWebService;
 import mx.edu.itlp.proyectomovil.webservice.ListenerWebService;
 import mx.edu.itlp.proyectomovil.adaptadores.productosAdaptador.ViewHolder;
 
-public class Productos extends AppCompatActivity implements LocationListener{
+public class Productos extends AppCompatActivity implements LocationListener {
 
     private TextView mTextMessage;
     private productosAdaptador productosAdaptador;
@@ -63,6 +67,7 @@ public class Productos extends AppCompatActivity implements LocationListener{
     private final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 5;
     private String[] str;
     private ViewHolder[] viewHolders;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,26 +80,23 @@ public class Productos extends AppCompatActivity implements LocationListener{
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
 
-            }
-            else {
+            } else {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
             }
-        }
-        else
-        {
+        } else {
             usarGPS();
         }
 
         intent = new Intent(this, Producto.class);
 
-        OProducto.tablaProductos(getIntent().getExtras().getInt("idVen"), new ListenerWebService() {
+        OProducto.tablaProductos(getSharedPreferences("MisPreferencias", MODE_PRIVATE).getInt("idVen", 0), new ListenerWebService() {
             @Override
             public void onResultado(Object resultado) {
                 oProductos = (OProducto[]) resultado;
-                productosAdaptador = new productosAdaptador(oProductos, getApplicationContext(),txtTotal);
-                ListView lvPro= (ListView) findViewById(R.id.lvPro);
+                productosAdaptador = new productosAdaptador(oProductos, getApplicationContext(), txtTotal);
+                ListView lvPro = (ListView) findViewById(R.id.lvPro);
                 lvPro.setAdapter(productosAdaptador);
                 lvPro.invalidate();
 
@@ -120,23 +122,20 @@ public class Productos extends AppCompatActivity implements LocationListener{
                 SharedPreferences.Editor editor = preferences.edit();
                 String fecha = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
                 String hora = new SimpleDateFormat("HH:mm:ss").format(new Date());
-                ClienteWebService.registrarPedido(String.valueOf(productosAdaptador.getTotalFinal()),getIntent().getExtras().getInt("idVen"), preferences.getInt("idCli", 0), fecha, hora, str[0], str[1], new ListenerWebService() {
+                String Total = String.valueOf(productosAdaptador.getTotalFinal());
+                int IdCliente = preferences.getInt("idCli", 0);
+                int idVend = getSharedPreferences("MisPreferencias", MODE_PRIVATE).getInt("idVen", 0);
+                ArrayList<ViewHolder> t = new ArrayList<ViewHolder>();
+                for (int i = 0; i < viewHolders.length; i++) {
+                    if (viewHolders[i] != null)
+                        if (viewHolders[i].getCantidad() > 0)
+                            t.add(viewHolders[i]);
+                }
+                Object[] nueva = t.toArray();
+                String JSON = new Gson().toJson(nueva);
+                ClienteWebService.registrarPedido(Total, idVend, IdCliente, fecha, hora, str[0], str[1], JSON, new ListenerWebService() {
                     @Override
                     public void onResultado(Object resultado) {
-                        viewHolders = productosAdaptador.getViewHolders();
-                        for(int i=0;i<viewHolders.length;i++){
-                            ClienteWebService.registrarProPed(Integer.valueOf(viewHolders[i].getIdPro()), viewHolders[i].getCantidad(), String.valueOf(viewHolders[i].getTotal()), new ListenerWebService() {
-                                @Override
-                                public void onResultado(Object resultado) {
-
-                                }
-
-                                @Override
-                                public void onError(String error) {
-
-                                }
-                            });
-                        }
                     }
 
                     @Override
@@ -165,11 +164,12 @@ public class Productos extends AppCompatActivity implements LocationListener{
 
     @Override
     public void onLocationChanged(Location location) {
-        str=new String[2];
+        str = new String[2];
         try {
-            str[0] = String.valueOf(location.getLatitude()) ;
+            str[0] = String.valueOf(location.getLatitude());
             str[1] = String.valueOf(location.getLongitude());
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
     }
 
     @Override
