@@ -136,6 +136,8 @@ public class Productos extends AppCompatActivity implements LocationListener {
                 ClienteWebService.registrarPedido(Total, idVend, IdCliente, fecha, hora, str[0], str[1], JSON, new ListenerWebService() {
                     @Override
                     public void onResultado(Object resultado) {
+                        String temp = (String)resultado;
+                        Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
                     }
 
                     @Override

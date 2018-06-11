@@ -159,8 +159,8 @@ public class ClienteWebService {
         parametros[4] = parametro("horaSolicitud", horaSolicitud);
         parametros[5] = parametro("latitud", latitud);
         parametros[6] = parametro("longitud", longitud);
-        parametros[6] = parametro("productos", Productos);
-        parametros[7] = parametro("passWS", PASSWS);
+        parametros[7] = parametro("productos", Productos);
+        parametros[8] = parametro("passWS", PASSWS);
         invocarWebService2(WSDL_TARGET_NAMESPACE,DIRECCION_SOAP, OPERACION_registrarPedido,SOAP_ACTION+OPERACION_registrarPedido, parametros, listener);
     }
 
