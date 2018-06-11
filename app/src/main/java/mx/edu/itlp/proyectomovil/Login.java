@@ -31,7 +31,7 @@ import mx.edu.itlp.proyectomovil.webservice.ListenerWebService;
 
 public class Login extends AppCompatActivity {
 
-    private Button login;
+    private Button registar;
     private Button loginV, loginC;
     private TextView lblRegistrar;
     private EditText txtCorreo, txtPassword;
@@ -42,7 +42,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         loginV = (Button)findViewById(R.id.btnLogear);
-        lblRegistrar = (TextView) findViewById(R.id.lblRegistrar);
+        registar = (Button) findViewById(R.id.btnRegistro);
         txtCorreo = (EditText) findViewById(R.id.txtCorreo);
         txtPassword = (EditText) findViewById(R.id.txtContraseña);
         loginV.setOnClickListener(new View.OnClickListener(){
@@ -69,7 +69,7 @@ public class Login extends AppCompatActivity {
                                 editor.putInt("idCli", usuario.getId());
                                 editor.commit();
 
-                                Intent intent = new Intent(getApplicationContext(), Vendedores.class);
+                                Intent intent = new Intent(getApplicationContext(), editarPerfil.class);
                                 startActivity(intent);
 
                             } else if (usuario.getRol().equals("vendedor")) {
@@ -99,7 +99,7 @@ public class Login extends AppCompatActivity {
         });
 
 
-        lblRegistrar.setOnClickListener(new View.OnClickListener() {
+        registar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Login.this, Registro.class);

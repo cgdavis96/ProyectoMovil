@@ -25,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.Manifest;
@@ -53,6 +54,7 @@ import mx.edu.itlp.proyectomovil.adaptadores.productosAdaptador.ViewHolder;
 
 public class Productos extends AppCompatActivity implements LocationListener{
 
+
     private TextView mTextMessage;
     private productosAdaptador productosAdaptador;
     Intent intent;
@@ -63,11 +65,24 @@ public class Productos extends AppCompatActivity implements LocationListener{
     private final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 5;
     private String[] str;
     private ViewHolder[] viewHolders;
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Productos.this,Vendedores.class);
+
+        startActivity(intent);
+        finish();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_productos);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
+
+
+
         txtTotal = (TextView) findViewById(R.id.txtTotal);
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)

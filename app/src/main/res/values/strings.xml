@@ -13,12 +13,11 @@
     <string name="title_activity_perfil">Perfil</string>
     <string name="title_activity_compras">Compras</string>
     <string name="title_activity_compra">Compra</string>
-    <string name="title_activity_vendedores">Vendedores</string>
+    <string name="title_activity_vendedores">Vendedores Disponibles</string>
     <string name="title_activity_pedido">Pedido</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_maps2">Map</string>
     <string name="title_activity_mapa_vendedor">Map</string>
-
     <string name="descripcion">Imagen perrona</string>
     <string name="btnLogear">Iniciar Sesion</string>
     <string name="btnRegistrar">Registrar</string>
@@ -29,4 +28,8 @@
     <string name="disponibles">Disponibles:</string>
     <string name="descripcion2">Descripcion:</string>
     <string name="title_activity_maps_ruta">Map</string>
+
+    <string name="title_activity_editarPerfil">Mi Perfil</string>
+    <string name="title_activity_editarProducto">Actualizar Producto</string>
+    <string name="title_activity_registro">Nuevo Usuario</string>
 </resources>
