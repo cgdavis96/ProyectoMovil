@@ -41,6 +41,10 @@ public class ClienteWebService {
     public static final String OPERACION_actualizarProducto= "actualizarProducto";
     public static final String OPERACION_eliminarProducto= "eliminarProducto";
     public static final String OPERACION_registrarProPed= "registrarProPed";
+    public static final String OPERACION_actualizarTokenCliente= "actualizarTokenCliente";
+    public static final String OPERACION_actualizarTokenVendedor= "actualizarTokenVendedor";
+    public static final String OPERACION_notificacion= "notificacion";
+    public static final String OPERACION_ubicacionPedido= "ubicacionPedido";
     public static final String NOMBRE_WEB_SERVICE = "serverCuesti.php";
     public static final String WSDL_TARGET_NAMESPACE = DIRECCION_SERVIDOR;
     public static final String DIRECCION_SOAP = WSDL_TARGET_NAMESPACE + "webservices/"+NOMBRE_WEB_SERVICE + "?WSDL";
@@ -159,8 +163,8 @@ public class ClienteWebService {
         parametros[4] = parametro("horaSolicitud", horaSolicitud);
         parametros[5] = parametro("latitud", latitud);
         parametros[6] = parametro("longitud", longitud);
-        parametros[6] = parametro("productos", Productos);
-        parametros[7] = parametro("passWS", PASSWS);
+        parametros[7] = parametro("productos", Productos);
+        parametros[8] = parametro("passWS", PASSWS);
         invocarWebService2(WSDL_TARGET_NAMESPACE,DIRECCION_SOAP, OPERACION_registrarPedido,SOAP_ACTION+OPERACION_registrarPedido, parametros, listener);
     }
 
@@ -172,6 +176,36 @@ public class ClienteWebService {
         parametros[3] = parametro("passWS", PASSWS);
         invocarWebService2(WSDL_TARGET_NAMESPACE,DIRECCION_SOAP, OPERACION_registrarProPed,SOAP_ACTION+OPERACION_registrarProPed, parametros, listener);
 
+    }
+
+    public static void actualizarTokenCliente(int idCli, String token, ListenerWebService listener){
+        PropertyInfo[] parametros = new PropertyInfo[2];
+        parametros[0] = parametro("idCli", idCli);
+        parametros[1] = parametro("token", token);
+        parametros[2] = parametro("passWS", PASSWS);
+        invocarWebService2(WSDL_TARGET_NAMESPACE,DIRECCION_SOAP, OPERACION_actualizarTokenCliente,SOAP_ACTION+OPERACION_actualizarTokenCliente, parametros, listener);
+    }
+
+    public static void actualizarTokenVendedor(int idVen, String token, ListenerWebService listener){
+        PropertyInfo[] parametros = new PropertyInfo[3];
+        parametros[0] = parametro("idVen", idVen);
+        parametros[1] = parametro("token", token);
+        parametros[2] = parametro("passWS", PASSWS);
+        invocarWebService2(WSDL_TARGET_NAMESPACE,DIRECCION_SOAP, OPERACION_actualizarTokenVendedor,SOAP_ACTION+OPERACION_actualizarTokenVendedor, parametros, listener);
+    }
+
+    public static void notificacion(int idVen, ListenerWebService listener){
+        PropertyInfo[] parametros = new PropertyInfo[2];
+        parametros[0] = parametro("idVen", idVen);
+        parametros[1] = parametro("passWS", PASSWS);
+        invocarWebService2(WSDL_TARGET_NAMESPACE,DIRECCION_SOAP, OPERACION_notificacion,SOAP_ACTION+OPERACION_notificacion, parametros, listener);
+    }
+
+    public static void ubicacionPedido(int idVen, ListenerWebService listener){
+        PropertyInfo[] parametros = new PropertyInfo[2];
+        parametros[0] = parametro("idVen", idVen);
+        parametros[1] = parametro("passWS", PASSWS);
+        invocarWebService2(WSDL_TARGET_NAMESPACE,DIRECCION_SOAP, OPERACION_ubicacionPedido,SOAP_ACTION+OPERACION_ubicacionPedido, parametros, listener);
     }
 
 

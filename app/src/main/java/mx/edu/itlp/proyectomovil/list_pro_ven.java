@@ -18,6 +18,14 @@ public class list_pro_ven extends AppCompatActivity {
     private OProducto[] oProductos;
     private productosVendedorAdaptador productosVendedorAdaptador;
     @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(list_pro_ven.this,Vendedores.class);
+
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_pro_ven);
@@ -66,7 +74,7 @@ public class list_pro_ven extends AppCompatActivity {
             @Override
             public void onResultado(Object resultado) {
                 oProductos = (OProducto[]) resultado;
-                productosVendedorAdaptador = new productosVendedorAdaptador(oProductos, getApplicationContext());
+                productosVendedorAdaptador = new productosVendedorAdaptador(oProductos, list_pro_ven.this);
                 ListView lvPro= (ListView) findViewById(R.id.lvProVende);
                 lvPro.setAdapter(productosVendedorAdaptador);
                 lvPro.invalidate();

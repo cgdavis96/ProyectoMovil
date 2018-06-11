@@ -37,5 +37,6 @@ dependencies {
     compile 'com.shawnlin:number-picker:2.4.6'
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.michaelmuenzer.android:ScrollableNumberPicker:0.2.2'
+    implementation 'com.google.firebase:firebase-messaging:17.0.0'
 }
 apply plugin: 'com.google.gms.google-services'

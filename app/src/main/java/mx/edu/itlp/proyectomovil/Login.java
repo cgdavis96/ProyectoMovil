@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -36,11 +38,13 @@ public class Login extends AppCompatActivity {
     private TextView lblRegistrar;
     private EditText txtCorreo, txtPassword;
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseInstanceIDService firebaseInstanceIDService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        final String token = FirebaseInstanceId.getInstance().getToken();
+
         loginV = (Button)findViewById(R.id.btnLogear);
         registar = (Button) findViewById(R.id.btnRegistro);
         txtCorreo = (EditText) findViewById(R.id.txtCorreo);
@@ -81,9 +85,27 @@ public class Login extends AppCompatActivity {
                                 //editor.putString("correoVendedor", txtCorreo.getText().toString());
                                 editor.putInt("idVen", usuario.getId());
                                 editor.commit();
-                                //Intent intent = new Intent(getApplicationContext(), editarPerfil.class);
-                                Intent intent = new Intent(getApplicationContext(), Productos.class);
-                                startActivity(intent);
+                                ClienteWebService.actualizarTokenVendedor(usuario.getId(),token,new ListenerWebService() {
+                                    @Override
+                                    public void onResultado(Object resultado) {
+                                        if(resultado!=null){
+                                            if(resultado.equals("Token actulizado")){
+
+                                                //Intent intent = new Intent(getApplicationContext(), editarPerfil.class);
+                                                Intent intent = new Intent(getApplicationContext(), editarPerfil.class);
+                                                startActivity(intent);
+                                            }else if(resultado.equals("Error al actualizar el token")){
+                                                final Toast toast = Toast.makeText(Login.this, "Error al iniciar sesión, vuelve a intentarlo", Toast.LENGTH_LONG);
+                                                toast.show();
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onError(String error) {
+
+                                    }
+                                });
                             }
                         }
 
@@ -92,6 +114,7 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onError(String error) {
                         final Toast toast = Toast.makeText(Login.this, "Error al ejecutar", Toast.LENGTH_LONG);
+                        toast.show();
                     }
                 });
             }

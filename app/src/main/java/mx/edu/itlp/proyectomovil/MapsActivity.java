@@ -2,6 +2,8 @@ package mx.edu.itlp.proyectomovil;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.support.v4.app.ActivityCompat;
@@ -28,10 +30,14 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+
+import mx.edu.itlp.proyectomovil.webservice.ClienteWebService;
+import mx.edu.itlp.proyectomovil.webservice.ListenerWebService;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, DirectionFinderListener {
 
@@ -131,17 +137,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void sendRequest(String origen){
-        String destino = txtDestino.getText().toString();
+        final String[] destino = {""};
+        SharedPreferences preferences = getSharedPreferences("MisPreferencias",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        ClienteWebService.ubicacionPedido(preferences.getInt("idVen", 0), new ListenerWebService() {
+            @Override
+            public void onResultado(Object resultado) {
+                String json = (String)resultado;
+                Gson gson = new Gson();
+                String[] coodenadas= gson.fromJson((String)resultado, String[].class);
+                destino[0] = coodenadas[0]+","+coodenadas[1];
+
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
+
+        //String destino = txtDestino.getText().toString();
         if(origen.isEmpty()){
             Toast.makeText(this, "Por favor ingrese el origen", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (destino.isEmpty()){
+        if (destino[0].isEmpty()){
             Toast.makeText(this, "Por favor ingrese el destino", Toast.LENGTH_SHORT).show();
             return;
         }
         try{
-            new DirectionFinder(this, origen, destino).execute();
+            new DirectionFinder(this, origen, destino[0]).execute();
         } catch (UnsupportedEncodingException e){
             e.printStackTrace();
         }

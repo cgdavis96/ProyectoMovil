@@ -60,7 +60,6 @@ public class Producto extends AppCompatActivity {
                         break;
                     case R.id.verProductos:
                         RadioButton radioButton =(RadioButton)findViewById(R.id.verProductos);
-                        radioButton.setText("Vendedores");
                         if(roltexto.equals("vendedor")) {
                             in = new Intent(getBaseContext(), list_pro_ven.class);
                             startActivity(in);
