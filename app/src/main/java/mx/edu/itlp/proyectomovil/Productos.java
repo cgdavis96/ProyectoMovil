@@ -25,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.Manifest;
@@ -55,7 +56,8 @@ import mx.edu.itlp.proyectomovil.webservice.ClienteWebService;
 import mx.edu.itlp.proyectomovil.webservice.ListenerWebService;
 import mx.edu.itlp.proyectomovil.adaptadores.productosAdaptador.ViewHolder;
 
-public class Productos extends AppCompatActivity implements LocationListener {
+public class Productos extends AppCompatActivity implements LocationListener{
+
 
     private TextView mTextMessage;
     private productosAdaptador productosAdaptador;
@@ -69,10 +71,23 @@ public class Productos extends AppCompatActivity implements LocationListener {
     private ViewHolder[] viewHolders;
 
     @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Productos.this,Vendedores.class);
+
+        startActivity(intent);
+        finish();
+    }
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_productos);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
+
+
+
         txtTotal = (TextView) findViewById(R.id.txtTotal);
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
@@ -91,12 +106,12 @@ public class Productos extends AppCompatActivity implements LocationListener {
 
         intent = new Intent(this, Producto.class);
 
-        OProducto.tablaProductos(getSharedPreferences("MisPreferencias", MODE_PRIVATE).getInt("idVen", 0), new ListenerWebService() {
+        OProducto.tablaProductos(getIntent().getExtras().getInt("idVen"), new ListenerWebService() {
             @Override
             public void onResultado(Object resultado) {
                 oProductos = (OProducto[]) resultado;
-                productosAdaptador = new productosAdaptador(oProductos, getApplicationContext(), txtTotal);
-                ListView lvPro = (ListView) findViewById(R.id.lvPro);
+                productosAdaptador = new productosAdaptador(oProductos, getApplicationContext(),txtTotal);
+                ListView lvPro= (ListView) findViewById(R.id.lvPro);
                 lvPro.setAdapter(productosAdaptador);
                 lvPro.invalidate();
 
@@ -164,12 +179,11 @@ public class Productos extends AppCompatActivity implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-        str = new String[2];
+        str=new String[2];
         try {
-            str[0] = String.valueOf(location.getLatitude());
+            str[0] = String.valueOf(location.getLatitude()) ;
             str[1] = String.valueOf(location.getLongitude());
-        } catch (Exception e) {
-        }
+        }catch (Exception e){}
     }
 
     @Override

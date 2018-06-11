@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -28,10 +29,77 @@ public class editarPerfil extends AppCompatActivity {
     String roltexto;
     Intent intent;
 
+    RadioGroup radioGroup1;
+    RadioButton deals;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_perfil);
+
+        SharedPreferences preferences = getSharedPreferences("MisPreferencias",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        roltexto = preferences.getString("rol","");
+
+        radioGroup1=(RadioGroup)findViewById(R.id.radioGroup1);
+        //deals = (RadioButton)findViewById(R.id.deals);
+
+        RadioButton radioButton =(RadioButton)findViewById(R.id.verProductos);
+        RadioButton radioButton1 =(RadioButton)findViewById(R.id.nProducto);
+        if(roltexto.equals("cliente")) {
+            radioButton.setText("Vendedores");
+            radioButton1.setVisibility(View.GONE);
+        }
+        radioGroup1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId)
+            {
+                Intent in;
+                switch (checkedId)
+                {
+                    case R.id.miPerfil:
+                        in=new Intent(getBaseContext(),editarPerfil.class);
+                        startActivity(in);
+                        finish();
+                        overridePendingTransition(0, 0);
+                        break;
+                    case R.id.verProductos:
+
+
+                        if(roltexto.equals("vendedor")) {
+                            in = new Intent(getBaseContext(), list_pro_ven.class);
+                            startActivity(in);
+                            finish();
+                        }else if(roltexto.equals("cliente")){
+                            in = new Intent(getBaseContext(), Vendedores.class);
+                            startActivity(in);
+                            finish();
+                        }
+                        overridePendingTransition(0, 0);
+
+                        break;
+                    case R.id.nProducto:
+
+                        if(roltexto.equals("vendedor")) {
+                            in = new Intent(getBaseContext(),Producto.class);
+                            startActivity(in);
+                            finish();
+                            overridePendingTransition(0, 0);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
+
+
+
+
+        //deals = (RadioButton)findViewById(R.id.deals);
 
         existe=false;
 
@@ -47,10 +115,7 @@ public class editarPerfil extends AppCompatActivity {
         btnRegistrar = (Button) findViewById(R.id.btnRegistrar);
         intent = new Intent();
 
-        SharedPreferences preferences = getSharedPreferences("MisPreferencias",
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        roltexto = preferences.getString("rol","");
+
 
         if(roltexto.equals("cliente")) {
             idUsuario = preferences.getInt("idCli", 0);
@@ -123,7 +188,7 @@ public class editarPerfil extends AppCompatActivity {
                 final String ApellidoP = txtApellidoP.getText().toString();
                 final String ApellidoM = txtApellidom.getText().toString();
                 final String Telefono = txtTelefono.getText().toString();
-                if (Contraseña.equals(ConfirmarContraseña)) {
+                if (Contraseña.equals(ConfirmarContraseña) && !Contraseña.equals("")) {
                     ClienteWebService.actualizarUsuario(idUsuario, Nombre, ApellidoP, ApellidoM, Telefono, rol, correo,  cifrarContrasena.encrypt(Contraseña, "qwdsdrtyfdesxcfr"), new ListenerWebService() {
                         @Override
                         public void onResultado(Object resultado) {

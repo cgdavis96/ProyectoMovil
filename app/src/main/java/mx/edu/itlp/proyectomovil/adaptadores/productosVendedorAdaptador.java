@@ -1,5 +1,6 @@
 package mx.edu.itlp.proyectomovil.adaptadores;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -79,7 +80,9 @@ public class productosVendedorAdaptador extends BaseAdapter {
             public void onClick(View view) {
                 Intent intent = new Intent(context,editarProducto.class);
                 intent.putExtra("idPro",oProductos[i].getIdPro());
+
                 context.startActivity(intent);
+                ((Activity)context).finish();
             }
         });
 

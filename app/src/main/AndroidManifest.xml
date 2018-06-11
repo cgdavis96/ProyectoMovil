@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -28,13 +29,13 @@
         <activity
             android:name=".Principal"
             android:label="@string/title_activity_principal" />
-        <activity android:name=".Registro" />
         <activity
             android:name=".Productos"
             android:label="@string/title_activity_productos"
             android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
             android:name=".Producto"
+
             android:label="@string/title_activity_producto" />
         <activity
             android:name=".Ventas"
@@ -45,6 +46,17 @@
         <activity
             android:name=".Perfil"
             android:label="@string/title_activity_perfil" />
+        <activity
+            android:name=".editarPerfil"
+            android:label="@string/title_activity_editarPerfil" />
+        <activity
+            android:name=".editarProducto"
+            android:label="@string/title_activity_editarProducto" />
+
+        <activity
+            android:name=".Registro"
+            android:label="@string/title_activity_registro" />
+
         <activity
             android:name=".Compras"
             android:label="@string/title_activity_compras" />
@@ -89,8 +101,6 @@
             android:name=".MapsActivityRuta"
             android:label="@string/title_activity_maps_ruta" />
         <activity android:name=".list_pro_ven" />
-        <activity android:name=".editarProducto" />
-        <activity android:name=".editarPerfil"></activity>
     </application>
 
 </manifest>
